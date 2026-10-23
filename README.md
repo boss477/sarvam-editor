@@ -1,3 +1,78 @@
+# Sarvam Editor
+
+An open-source AI video editor for Indian creators, built on OpenCut Classic
+with Sarvam AI integrations. Previously developed locally as Bharat Editor.
+
+Edit once, publish in multiple Indian languages, and automate editing through
+Sarvam-105B function calling or an MCP-compatible agent.
+
+**Independent community project. Not an official Sarvam AI product, and not
+affiliated with or endorsed by Sarvam AI or OpenCut.**
+
+## Features
+
+- Browser-based video/audio timeline, split, trim, undo/redo and local projects.
+- Timestamped editable captions, caption translation and caption-aligned speech.
+- Language-specific video and SRT exports packaged in a ZIP.
+- Editable lower-third, rising and pop motion titles.
+- Twelve self-hosted Indic-script font families and responsive editor panels.
+- Sarvam-105B assistant and a shared 14-tool MCP editor bridge.
+
+## Quick Start
+
+Requires [Bun](https://bun.sh/) and a modern browser with media codec support.
+
+```powershell
+git clone https://github.com/boss477/sarvam-editor.git
+cd sarvam-editor
+Copy-Item apps/web/.env.example apps/web/.env.local
+bun install
+cd apps/web
+bun run dev --port 3015
+```
+
+Open [localhost:3015](http://localhost:3015). Set `NEXT_PUBLIC_SITE_URL` to that
+address in the local environment file. Generate independent random values for
+`BETTER_AUTH_SECRET` and `EDITOR_AGENT_TOKEN`; do not deploy example credentials.
+
+Ordinary editing and local export do not need an AI API key. For AI features,
+set server-only `SARVAM_API_KEY` in `apps/web/.env.local` and restart the server.
+The app integrates speech-to-text, translation, text-to-speech and chat APIs.
+Claude is optional; the built-in Sarvam assistant does not require Claude login.
+
+Project media stays in browser storage during ordinary editing. AI operations
+send the required audio/text and assistant tool context to Sarvam. Keep this
+development setup local; production authentication/deployment are not verified.
+
+## Status and Documentation
+
+This is a working development prototype, not a production-ready release.
+Local editing, persistence, MCP actions and synthetic media exports were tested.
+Live authenticated Sarvam workflows and speech quality remain unverified.
+Caption/translation controls expose 23 language codes; Bulbul v3 voice generation
+is limited to 11 languages. No voice cloning or lip-sync is implemented.
+
+The focused integration suite has 39 passing tests. The last full web suite had
+231 passing tests and three existing upstream mask-test failures.
+
+- [Setup, MCP, tests and verified limitations](BHARAT.md)
+- [Milestones](docs/bharat-milestones.md)
+- [Editor reference study](docs/editor-references.md)
+- [Motion engine licensing review](docs/motion-engines.md)
+
+## Attribution and License
+
+Based on [OpenCut Classic](https://github.com/OpenCut-app/opencut-classic), commit
+`cf5e79e919144200294fb9fed22a222592a0aeea`. The original MIT license and notices
+are retained in [LICENSE](LICENSE). Bundled fonts include their OFL notices under
+`apps/web/public/licenses/`. Sarvam API use is subject to the provider's terms
+and pricing. No Remotion, GSAP or HyperFrames rendering runtime is bundled.
+
+The original upstream README follows for architecture and development reference.
+Its sponsorship and roadmap statements describe upstream, not this project.
+
+---
+
 # OpenCut (Legacy)
 
 This is the original OpenCut codebase. It's archived and no longer maintained.

@@ -15,6 +15,7 @@ import type {
 	TextFontWeight,
 } from "@/text/primitives";
 import type { SubtitleCue, SubtitleStyleOverrides } from "./types";
+import { getIndicFontFamily } from "@/fonts/indic-fonts";
 
 const SUBTITLE_MAX_WIDTH_RATIO = 0.8;
 const SUBTITLE_BOTTOM_MARGIN_RATIO = 0.05;
@@ -265,6 +266,8 @@ export function buildSubtitleTextElement({
 	const style = resolveSubtitleStyle({
 		style: caption.style,
 	});
+	if (!caption.style?.fontFamily)
+		style.fontFamily = getIndicFontFamily(caption.text);
 	const fontFamily = quoteFontFamily({
 		fontFamily: style.fontFamily,
 	});

@@ -15,6 +15,7 @@ import { DeleteProjectDialog } from "@/project/components/delete-project-dialog"
 import { useRouter } from "next/navigation";
 import { FaDiscord } from "react-icons/fa6";
 import { ExportButton } from "./export-button";
+import { SarvamPanel } from "@/agent/sarvam-panel";
 import { FeedbackPopover } from "@/feedback/components/feedback-popover";
 import { ThemeToggle } from "../theme-toggle";
 import { DEFAULT_LOGO_URL } from "@/site/brand";
@@ -29,15 +30,23 @@ import { cn } from "@/utils/ui";
 
 export function EditorHeader() {
 	return (
-		<header className="bg-background flex h-[3.4rem] items-center justify-between px-3 pt-0.5">
-			<div className="flex items-center gap-1">
+		<header className="bg-background flex min-h-[3.4rem] shrink-0 items-center justify-between gap-2 px-2 sm:px-3 pt-0.5">
+			<div className="flex min-w-0 flex-1 items-center gap-1">
 				<ProjectDropdown />
 				<EditableProjectName />
 			</div>
-			<nav className="flex items-center gap-2">
-				<FeedbackPopover />
+			<nav
+				aria-label="Project actions"
+				className="flex shrink-0 items-center gap-1 sm:gap-2"
+			>
+				<SarvamPanel />
+				<div className="hidden sm:contents">
+					<FeedbackPopover />
+				</div>
 				<ExportButton />
-				<ThemeToggle />
+				<div className="hidden sm:contents">
+					<ThemeToggle />
+				</div>
 			</nav>
 		</header>
 	);
@@ -231,6 +240,7 @@ function EditableProjectName() {
 
 	return (
 		<input
+			aria-label="Project name"
 			ref={inputRef}
 			type="text"
 			defaultValue={projectName}
@@ -240,7 +250,7 @@ function EditableProjectName() {
 			onKeyDown={handleKeyDown}
 			style={{ fieldSizing: "content" }}
 			className={cn(
-				"text-[0.9rem] h-8 px-2 py-1 rounded-sm bg-transparent outline-none cursor-pointer hover:bg-accent hover:text-accent-foreground",
+				"text-[0.9rem] h-8 min-w-0 max-w-full truncate px-2 py-1 rounded-sm bg-transparent outline-none cursor-pointer hover:bg-accent hover:text-accent-foreground",
 				isEditing && "ring-1 ring-ring cursor-text hover:bg-transparent",
 			)}
 		/>

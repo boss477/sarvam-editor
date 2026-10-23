@@ -14,14 +14,58 @@ export type ModifierKeys =
 	| "ctrl+alt+shift";
 
 const KEYS = [
-	"a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-	"k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-	"u", "v", "w", "x", "y", "z",
-	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-	"up", "down", "left", "right",
-	"/", "?", ".",
-	"enter", "tab", "space", "escape", "esc",
-	"backspace", "delete", "home", "end",
+	"a",
+	"b",
+	"c",
+	"d",
+	"e",
+	"f",
+	"g",
+	"h",
+	"i",
+	"j",
+	"k",
+	"l",
+	"m",
+	"n",
+	"o",
+	"p",
+	"q",
+	"r",
+	"s",
+	"t",
+	"u",
+	"v",
+	"w",
+	"x",
+	"y",
+	"z",
+	"0",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"up",
+	"down",
+	"left",
+	"right",
+	"/",
+	"?",
+	".",
+	"enter",
+	"tab",
+	"space",
+	"escape",
+	"esc",
+	"backspace",
+	"delete",
+	"home",
+	"end",
 ] as const;
 
 export type Key = (typeof KEYS)[number];
@@ -37,6 +81,25 @@ export type ModifierBasedShortcutKey = `${ModifierKeys}+${Key}`;
 export type SingleCharacterShortcutKey = `${Key}`;
 
 export type ShortcutKey = ModifierBasedShortcutKey | SingleCharacterShortcutKey;
+
+export function isShortcutKey(value: string): value is ShortcutKey {
+	if (isKey(value)) return true;
+	const parts = value.split("+");
+	const key = parts.pop();
+	return (
+		!!key &&
+		isKey(key) &&
+		[
+			"ctrl",
+			"alt",
+			"shift",
+			"ctrl+shift",
+			"alt+shift",
+			"ctrl+alt",
+			"ctrl+alt+shift",
+		].includes(parts.join("+"))
+	);
+}
 
 export type KeybindingConfig = {
 	[key in ShortcutKey]?: TActionWithOptionalArgs;

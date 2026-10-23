@@ -1,6 +1,7 @@
 import { ThemeProvider } from "next-themes";
 import Script from "next/script";
 import "./globals.css";
+import "@/fonts/indic-font-styles";
 import { Toaster } from "../components/ui/sonner";
 import { ChangelogNotification } from "@/changelog/components/changelog-notification";
 import { TooltipProvider } from "../components/ui/tooltip";
@@ -29,15 +30,16 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<BotIdClient protect={protectedRoutes} />
-				{process.env.NODE_ENV === "development" && (
-					<>
-						<Script
-							src="//unpkg.com/react-scan/dist/auto.global.js"
-							crossOrigin="anonymous"
-							strategy="beforeInteractive"
-						/>
-					</>
-				)}
+				{process.env.NODE_ENV === "development" &&
+					process.env.ENABLE_REACT_SCAN === "true" && (
+						<>
+							<Script
+								src="//unpkg.com/react-scan/dist/auto.global.js"
+								crossOrigin="anonymous"
+								strategy="beforeInteractive"
+							/>
+						</>
+					)}
 			</head>
 			<body className={`${siteFont.className} font-sans antialiased`}>
 				<ThemeProvider

@@ -16,7 +16,9 @@ import { Onboarding } from "@/components/editor/onboarding";
 import { MigrationDialog } from "@/project/components/migration-dialog";
 import { usePanelStore } from "@/editor/panel-store";
 import { usePasteMedia } from "@/media/use-paste-media";
-import { MobileGate } from "@/components/editor/mobile-gate";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { MonitorPlay, FolderOpen, SlidersHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useEditor } from "@/editor/use-editor";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
@@ -40,20 +42,18 @@ export default function Editor() {
 	const projectId = params.project_id as string;
 
 	return (
-		<MobileGate>
-			<EditorProvider projectId={projectId}>
-				<div className="bg-background flex h-screen w-screen flex-col overflow-hidden">
-					<DegradedRendererBanner />
-					<EditorHeader />
-					<div className="min-h-0 min-w-0 flex-1">
-						<EditorLayout />
-					</div>
-					<Onboarding />
-					<MigrationDialog />
-					<ChangelogNotification />
+		<EditorProvider projectId={projectId}>
+			<div className="bg-background flex h-dvh w-full flex-col overflow-hidden">
+				<DegradedRendererBanner />
+				<EditorHeader />
+				<div className="min-h-0 min-w-0 flex-1">
+					<EditorLayout />
 				</div>
-			</EditorProvider>
-		</MobileGate>
+				<Onboarding />
+				<MigrationDialog />
+				<ChangelogNotification />
+			</div>
+		</EditorProvider>
 	);
 }
 
@@ -80,6 +80,7 @@ function DegradedRendererBanner() {
 
 function EditorLayout() {
 	usePasteMedia();
+	const isMobile = useIsMobile();
 	const { panels, setPanel } = usePanelStore();
 	const activeScene = useEditor((editor) =>
 		editor.scenes.getActiveSceneOrNull(),
@@ -125,6 +126,55 @@ function EditorLayout() {
 		[overlaySource.definitions, overlays],
 	);
 
+	if (isMobile)
+		return (
+			<div className="grid h-full min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_minmax(0,1fr)] gap-1 px-1 pb-1">
+				<Tabs defaultValue="preview" className="flex min-h-0 min-w-0 flex-col">
+					<TabsList
+						aria-label="Editor panels"
+						className="grid shrink-0 grid-cols-3"
+					>
+						<TabsTrigger value="preview" className="h-10 gap-2">
+							<MonitorPlay className="size-4" />
+							Preview
+						</TabsTrigger>
+						<TabsTrigger value="assets" className="h-10 gap-2">
+							<FolderOpen className="size-4" />
+							Assets
+						</TabsTrigger>
+						<TabsTrigger value="properties" className="h-10 gap-2">
+							<SlidersHorizontal className="size-4" />
+							Properties
+						</TabsTrigger>
+					</TabsList>
+					<TabsContent
+						value="preview"
+						className="min-h-0 flex-1 overflow-hidden mt-0"
+					>
+						<PreviewPanel
+							overlayControls={overlayControls}
+							overlayInstances={overlaySource.instances}
+							onOverlayVisibilityChange={setOverlayVisibility}
+						/>
+					</TabsContent>
+					<TabsContent
+						value="assets"
+						className="min-h-0 flex-1 overflow-hidden mt-0"
+					>
+						<AssetsPanel />
+					</TabsContent>
+					<TabsContent
+						value="properties"
+						className="min-h-0 flex-1 overflow-hidden mt-0"
+					>
+						<PropertiesPanel />
+					</TabsContent>
+				</Tabs>
+				<div className="min-h-0 min-w-0">
+					<Timeline />
+				</div>
+			</div>
+		);
 	return (
 		<ResizablePanelGroup
 			direction="vertical"

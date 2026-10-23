@@ -1,5 +1,6 @@
 import type { FontAtlas } from "@/fonts/types";
 import { SYSTEM_FONTS } from "@/fonts/system-fonts";
+import { getLocalFontSample } from "./indic-fonts";
 
 const GOOGLE_FONTS_CSS = "https://fonts.googleapis.com/css2";
 const FONT_ATLAS_PATH = "/fonts/font-atlas.json";
@@ -60,6 +61,16 @@ export async function loadFullFont({
 	weights?: number[];
 }): Promise<void> {
 	if (fullLoaded.has(family)) return;
+	const sample = getLocalFontSample(family);
+	if (sample) {
+		await Promise.all(
+			weights.map((weight) =>
+				document.fonts.load(`${weight} 16px "${family}"`, sample),
+			),
+		);
+		fullLoaded.add(family);
+		return;
+	}
 
 	const url = `${GOOGLE_FONTS_CSS}?family=${encodeGoogleFontsFamily(family)}:wght@${weights.join(";")}&display=swap`;
 	const link = document.createElement("link");

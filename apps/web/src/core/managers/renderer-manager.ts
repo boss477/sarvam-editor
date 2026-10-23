@@ -8,6 +8,9 @@ import { createTimelineAudioBuffer } from "@/media/audio";
 import { formatTimecode } from "opencut-wasm";
 import { frameRateToFloat } from "@/fps/utils";
 import { downloadBlob } from "@/utils/browser";
+import { calculateTotalDuration, type SceneTracks } from "@/timeline";
+import { loadFonts } from "@/fonts/google-fonts";
+import { getElementFontFamilies } from "@/timeline/element-utils";
 
 type SnapshotResult =
 	| { success: true; blob: Blob; filename: string }
@@ -122,7 +125,10 @@ export class RendererManager {
 				return { success: false, error: "Failed to create image" };
 			}
 
-			const timecode = formatTimecode({ time: renderTime, rate: fps })!.replace(/:/g, "-");
+			const timecode = formatTimecode({ time: renderTime, rate: fps })!.replace(
+				/:/g,
+				"-",
+			);
 			const safeName =
 				activeProject.metadata.name.replace(/[<>:"/\\|?*]/g, "-").trim() ||
 				"snapshot";
@@ -140,17 +146,19 @@ export class RendererManager {
 
 	async exportProject({
 		options,
+		renderTracks,
 		onProgress,
 		onCancel,
 	}: {
 		options: ExportOptions;
+		renderTracks?: SceneTracks;
 		onProgress?: ({ progress }: { progress: number }) => void;
 		onCancel?: () => boolean;
 	}): Promise<ExportResult> {
 		const { format, quality, fps, includeAudio } = options;
 
 		try {
-			const tracks = this.editor.scenes.getActiveScene().tracks;
+			const tracks = renderTracks ?? this.editor.scenes.getActiveScene().tracks;
 			const mediaAssets = this.editor.media.getAssets();
 			const activeProject = this.editor.project.getActive();
 
@@ -158,12 +166,13 @@ export class RendererManager {
 				return { success: false, error: "No active project" };
 			}
 
-			const duration = this.editor.timeline.getTotalDuration();
+			const duration = calculateTotalDuration({ tracks });
 			if (duration === 0) {
 				return { success: false, error: "Project is empty" };
 			}
 
 			const exportFps = fps ?? activeProject.settings.fps;
+			await loadFonts({ families: getElementFontFamilies({ tracks }) });
 			const canvasSize = activeProject.settings.canvasSize;
 
 			let audioBuffer: AudioBuffer | null = null;

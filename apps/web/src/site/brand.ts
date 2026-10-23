@@ -1,9 +1,9 @@
 export const SITE_URL = "https://opencut.app";
 
 export const SITE_INFO = {
-	title: "OpenCut",
+	title: "Sarvam Editor",
 	description:
-		"A simple but powerful video editor that gets the job done. In your browser.",
+		"An independent video editor for Indian creators with Sarvam AI integrations. Based on OpenCut Classic.",
 	url: SITE_URL,
 	openGraphImage: "/open-graph/default.jpg",
 	twitterImage: "/open-graph/default.jpg",
