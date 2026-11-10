@@ -1,22 +1,38 @@
-# Sarvam Editor
+<h1 align="center">Sarvam Editor</h1>
 
-An open-source AI video editor for Indian creators, built on OpenCut Classic
-with Sarvam AI integrations. Previously developed locally as Bharat Editor.
+<p align="center"><strong>Edit once, publish in many Indian languages.</strong></p>
 
-Edit once, publish in multiple Indian languages, and automate editing through
-Sarvam-105B function calling or an MCP-compatible agent.
+<p align="center">
+An open-source browser video editor for Indian creators, built on OpenCut Classic. Sarvam AI writes
+the captions, translates them and voices them, and an agent can drive the editor through Sarvam-105B
+function calling or MCP.
+</p>
 
-**Independent community project. Not an official Sarvam AI product, and not
-affiliated with or endorsed by Sarvam AI or OpenCut.**
+<p align="center">
+  <a href="https://boss477.github.io/sarvam-editor/"><img alt="website: boss477.github.io" src="https://img.shields.io/badge/website-boss477.github.io-0f6b8f"></a>
+  <a href="LICENSE"><img alt="license: MIT" src="https://img.shields.io/badge/license-MIT-0f6b8f"></a>
+  <img alt="Next.js: 16" src="https://img.shields.io/badge/Next.js-16-0f6b8f?logo=nextdotjs&logoColor=white">
+  <img alt="runtime: Bun" src="https://img.shields.io/badge/runtime-Bun-0f6b8f?logo=bun&logoColor=white">
+  <img alt="caption languages: 23" src="https://img.shields.io/badge/caption%20languages-23-8aa0ad">
+</p>
 
-## Features
+![Sarvam Editor running locally: a clip on the timeline and a Hindi title in the preview](docs/images/editor.webp)
 
-- Browser-based video/audio timeline, split, trim, undo/redo and local projects.
-- Timestamped editable captions, caption translation and caption-aligned speech.
-- Language-specific video and SRT exports packaged in a ZIP.
-- Editable lower-third, rising and pop motion titles.
-- Twelve self-hosted Indic-script font families and responsive editor panels.
-- Sarvam-105B assistant and a shared 14-tool MCP editor bridge.
+<sub>Captured from a local run. The clip is a generated test pattern; the title reads "Welcome to my channel" in Hindi.</sub>
+
+> **Independent community project.** Not an official Sarvam AI product, and not affiliated with or
+> endorsed by Sarvam AI or OpenCut. Previously developed locally as Bharat Editor.
+
+## What it does
+
+| | What happens |
+|---|---|
+| **Edit** | A browser timeline with split, trim, undo and redo. Projects stay in browser storage. |
+| **Caption** | Timestamped, editable captions from Sarvam speech-to-text. |
+| **Translate and voice** | Caption translation across 23 language codes, and caption-aligned speech in the 11 Bulbul v3 languages. |
+| **Title** | Editable lower-third, rising and pop motion titles, in twelve self-hosted Indic font families. |
+| **Export** | A video and an SRT file per language, packaged in one ZIP. |
+| **Automate** | A Sarvam-105B assistant and a shared 14-tool MCP bridge drive the same editor actions. |
 
 ## Quick Start
 
