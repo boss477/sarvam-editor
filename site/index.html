@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sarvam Editor, an open-source video editor for Indian languages</title>
+<meta name="description" content="An open-source browser video editor for Indian creators, built on OpenCut Classic, with Sarvam AI captions, translation and dubbing. An independent community project.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500&family=Funnel+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="top">
+  <canvas class="light" aria-hidden="true"></canvas>
+  <header class="nav">
+    <div class="container">
+      <div class="nav__pill clear">
+        <a class="wordmark" href="#main">Sarvam Editor</a>
+        <nav aria-label="Page">
+          <ul>
+            <li><a href="#parts">What it does</a></li>
+            <li><a href="#status">What is tested</a></li>
+            <li><a href="#run">Run it</a></li>
+            <li><a href="https://github.com/boss477/sarvam-editor">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="hero" id="main">
+      <div>
+        <h1>Edit once, publish in many languages</h1>
+        <p class="lead">An open-source browser video editor with Sarvam AI captions, translation and dubbing.</p>
+        <div class="actions">
+          <a class="btn" href="https://github.com/boss477/sarvam-editor">Get the code</a>
+          <a class="link" href="#status">See what is tested</a>
+        </div>
+      </div>
+      <figure class="shot clear" data-slot="hero" data-kind="product" data-alt="The Sarvam Editor running locally: a clip on the timeline with a Hindi title in the preview">
+        <img src="images/editor.webp" width="1440" height="594" alt="Sarvam Editor with a clip on the timeline and the title मेरे चैनल में आपका स्वागत है in the preview" fetchpriority="high">
+      </figure>
+    </section>
+  </div>
+</div>
+
+<main>
+<section class="exports">
+  <div class="container cols">
+    <div class="exports__text">
+      <h2>One timeline, exports per language</h2>
+      <p class="lead">Each language gets its own video and SRT file, packaged in one ZIP.</p>
+    </div>
+    <figure class="cue clear" data-switch>
+      <div class="seg" role="tablist" aria-label="Caption language">
+        <button type="button" role="tab" id="t-en" aria-controls="c-en" aria-selected="true">English</button>
+        <button type="button" role="tab" id="t-hi" aria-controls="c-hi" aria-selected="false" tabindex="-1">Hindi</button>
+        <button type="button" role="tab" id="t-ta" aria-controls="c-ta" aria-selected="false" tabindex="-1">Tamil</button>
+        <button type="button" role="tab" id="t-bn" aria-controls="c-bn" aria-selected="false" tabindex="-1">Bengali</button>
+        <button type="button" role="tab" id="t-te" aria-controls="c-te" aria-selected="false" tabindex="-1">Telugu</button>
+      </div>
+      <p class="cue__line" role="tabpanel" id="c-en" aria-labelledby="t-en">Welcome to my channel.</p>
+      <p class="cue__line" role="tabpanel" id="c-hi" aria-labelledby="t-hi" lang="hi">मेरे चैनल में आपका स्वागत है।</p>
+      <p class="cue__line" role="tabpanel" id="c-ta" aria-labelledby="t-ta" lang="ta">என் சேனலுக்கு வரவேற்கிறேன்.</p>
+      <p class="cue__line" role="tabpanel" id="c-bn" aria-labelledby="t-bn" lang="bn">আমার চ্যানেলে স্বাগতম।</p>
+      <p class="cue__line" role="tabpanel" id="c-te" aria-labelledby="t-te" lang="te">నా ఛానెల్‌కు స్వాగతం.</p>
+      <figcaption>One caption cue, five of its languages</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="parts" id="parts">
+  <div class="container">
+    <h2>What ships in the editor</h2>
+    <dl class="stats">
+      <div><dt>caption and translation language codes</dt><dd>23</dd></div>
+      <div><dt>languages with Bulbul v3 voices</dt><dd>11</dd></div>
+      <div><dt>self-hosted Indic font families</dt><dd>12</dd></div>
+      <div><dt>editor tools on the MCP bridge</dt><dd>14</dd></div>
+    </dl>
+    <div class="parts__body cols">
+      <ul class="rows">
+        <li><h3>Timeline</h3><p>Split, trim, undo and redo, with projects kept in the browser.</p></li>
+        <li><h3>Captions</h3><p>Timestamped and editable, then translated and voiced in step.</p></li>
+        <li><h3>Motion titles</h3><p>Lower-third, rising and pop titles you can edit.</p></li>
+        <li><h3>Assistant</h3><p>Sarvam-105B or any MCP agent drives the same editor tools.</p></li>
+      </ul>
+      <figure class="panel clear" data-slot="panel" data-kind="product" data-alt="The Sarvam panel inside the editor">
+        <img src="images/sarvam-panel.webp" width="257" height="479" alt="The Sarvam panel: caption generation, translation, voice, motion titles and language exports" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="status" id="status">
+  <div class="container cols">
+    <h2>A prototype, tested this far</h2>
+    <section class="clear" aria-labelledby="s-yes">
+      <h3 id="s-yes">Tested</h3>
+      <ul>
+        <li>Local editing and persistence</li>
+        <li>MCP editor actions</li>
+        <li>Exports of synthetic media</li>
+        <li>39 focused integration tests passing</li>
+      </ul>
+    </section>
+    <section aria-labelledby="s-no">
+      <h3 id="s-no">Not verified yet</h3>
+      <ul>
+        <li>Live authenticated Sarvam workflows</li>
+        <li>Speech quality</li>
+        <li>Production sign-in and deployment</li>
+        <li>Voice cloning and lip-sync are not implemented</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<section class="run" id="run">
+  <canvas class="light" aria-hidden="true"></canvas>
+  <div class="container cols">
+    <div class="run__text">
+      <h2>Run it locally with Bun</h2>
+      <p class="lead">Editing and local export need no API key.</p>
+      <div class="actions"><a class="link" href="https://github.com/boss477/sarvam-editor/blob/main/BHARAT.md">Read the setup notes</a></div>
+    </div>
+    <figure class="clear">
+      <pre tabindex="0" aria-label="Quick start commands"><code>git clone https://github.com/boss477/sarvam-editor.git
+cd sarvam-editor
+Copy-Item apps/web/.env.example apps/web/.env.local
+bun install
+cd apps/web
+bun run dev --port 3015</code></pre>
+      <figcaption>PowerShell. Then open localhost:3015.</figcaption>
+    </figure>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="container cols">
+    <a class="wordmark" href="#main">Sarvam Editor</a>
+    <ul>
+      <li><a class="link" href="https://github.com/boss477/sarvam-editor">Repository</a></li>
+      <li><a class="link" href="https://github.com/boss477/sarvam-editor/blob/main/docs/bharat-milestones.md">Milestones</a></li>
+      <li><a class="link" href="https://github.com/OpenCut-app/opencut-classic">OpenCut Classic</a></li>
+    </ul>
+    <small>An independent community project, not affiliated with or endorsed by Sarvam AI or OpenCut. Based on OpenCut Classic under the MIT licence.</small>
+  </div>
+</footer>
+
+<script>
+(() => {
+  document.querySelectorAll('[data-switch]').forEach((sw) => {
+    const tabs = [...sw.querySelectorAll('[role="tab"]')];
+    const show = (tab, focus) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) tab.focus({ preventScroll: true });
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => show(t));
+      t.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        show(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+      });
+    });
+    show(tabs[0]);
+  });
+
+  const root = getComputedStyle(document.documentElement);
+  const tok = (n) => root.getPropertyValue(n).trim();
+  const draw = (c) => {
+    const w = (c.width = c.offsetWidth), h = (c.height = c.offsetHeight);
+    if (!w || !h) return;
+    const g = c.getContext('2d');
+    g.clearRect(0, 0, w, h);
+    g.save();
+    g.translate(w * 0.5, h * 0.02);
+    g.rotate(-0.38);
+    g.filter = 'blur(26px)';
+    g.globalAlpha = 0.5;
+    g.fillStyle = tok('--color-shade');
+    g.fillRect(0, h * 0.1, w * 0.8, h * 0.95);
+    g.globalAlpha = 0.62;
+    ['--spec-1', '--spec-2', '--spec-3', '--spec-4'].forEach((n, i) => {
+      g.fillStyle = tok(n);
+      g.fillRect(-w * 0.05, h * (0.34 + i * 0.075), w * 0.95, h * 0.075);
+    });
+    g.filter = 'blur(3px)';
+    g.globalAlpha = 0.9;
+    g.fillStyle = tok('--color-light');
+    g.fillRect(-w * 0.05, h * 0.325, w * 0.95, h * 0.014);
+    g.restore();
+  };
+  const lights = [...document.querySelectorAll('canvas.light')];
+  const paint = () => lights.forEach(draw);
+  paint();
+  addEventListener('resize', paint);
+})();
+</script>
+</body>
+</html>
