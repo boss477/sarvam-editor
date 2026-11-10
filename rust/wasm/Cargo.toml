@@ -29,3 +29,8 @@ web-sys = { version = "0.3.93", features = ["OffscreenCanvas", "HtmlCanvasElemen
 [features]
 default = ["wasm"]
 wasm = []
+
+# Rust 1.87+ emits bulk-memory and other post-MVP features by default; the
+# wasm-opt that wasm-pack bundles rejects them unless they are enabled.
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O", "--enable-bulk-memory", "--enable-nontrapping-float-to-int", "--enable-sign-ext", "--enable-mutable-globals", "--enable-reference-types"]
