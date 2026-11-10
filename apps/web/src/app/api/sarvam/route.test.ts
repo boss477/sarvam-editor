@@ -163,7 +163,7 @@ test("chat route shares every editor tool and preserves tool-result messages", a
 	];
 	mockUpstream(
 		(url, init) => {
-			expect(url).toBe("https://api.sarvam.ai/v1/chat/completions");
+			expect(url).toBe("https://api.sarvam.ai/v2/chat/completions");
 			const body = JSON.parse(String(init.body));
 			expect(body.model).toBe("sarvam-105b");
 			expect(body.tools).toEqual(modelTools);
