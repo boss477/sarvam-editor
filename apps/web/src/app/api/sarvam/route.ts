@@ -71,7 +71,7 @@ export async function POST(request: Request) {
 							},
 						})
 					: await sarvamRequest({
-							path: "/v1/chat/completions",
+							path: "/v2/chat/completions",
 							body: {
 								model: "sarvam-105b",
 								messages: data.messages,
