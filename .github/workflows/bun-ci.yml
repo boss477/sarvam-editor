@@ -54,7 +54,7 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
 
       - name: Build WASM
-        run: wasm-pack build rust/wasm --target bundler --out-dir pkg
+        run: wasm-pack build rust/wasm --target bundler --out-dir pkg --no-opt
 
       - name: Install Bun
         uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76
